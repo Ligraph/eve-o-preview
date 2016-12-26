@@ -558,6 +558,7 @@ namespace EveOPreview.UI
 		{
 			this.ApplicationSettingsChanged?.Invoke();
 			this.LockChanged?.Invoke();
+		}
 
 		private void ConfigFileSelector_SelectionChangeCommitted(object sender, EventArgs e)
 		{

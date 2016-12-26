@@ -46,6 +46,7 @@ namespace EveOPreview.UI
 			{
 				this._activeConfigView.ConfigFiles = this.ConfigFiles;
 			}
+			//todo either here or in scan update the layout based off of the current config file
 		}
 
 		public void ScanForConfigFiles()
