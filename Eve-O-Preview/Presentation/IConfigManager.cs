@@ -13,7 +13,7 @@ namespace EveOPreview.UI
 
 		Dictionary<string, string> ConfigFiles { get; set; }
 
-		void ScanForConfigFiles();
+		void UpdateConfigListing();
 		void LaunchConfigDialog();
 		Action UpdateMainConfigListing { get; set; }
 		Action ReloadSettings { get; set; }

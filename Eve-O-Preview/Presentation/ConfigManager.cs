@@ -41,6 +41,8 @@ namespace EveOPreview.UI
 
 		public void UpdateConfigListing()
 		{
+			this.ScanForConfigFiles();
+
 			this.UpdateMainConfigListing?.Invoke();
 			if(this._activeConfigView != null)
 			{
@@ -49,7 +51,7 @@ namespace EveOPreview.UI
 			//todo either here or in scan update the layout based off of the current config file
 		}
 
-		public void ScanForConfigFiles()
+		private void ScanForConfigFiles()
 		{
 			if(File.Exists(this._configurationStorage.GetConfigFileName()))
 				this._configurationStorage.Save(); // saves the current config
@@ -84,8 +86,6 @@ namespace EveOPreview.UI
 			{
 				this.SetCurrentConfig?.Invoke(configs.Keys.ElementAt(0));
 			}
-
-			this.UpdateConfigListing();
 		}
 
 		public void LaunchConfigDialog()
@@ -182,8 +182,7 @@ namespace EveOPreview.UI
 			}
 
 			this.ConfigFiles.Add(newName, configName);
-
-			this.UpdateConfigListing();
+			
 			this.ReloadSettings?.Invoke();
 		}
 
@@ -210,8 +209,8 @@ namespace EveOPreview.UI
 			this.ConfigFiles.TryGetValue(fileName, out oldName);
 
 			this.RenameConfigFile(newName, oldName + " - Copy");
-
-			this.UpdateConfigListing();
+			
+			this.ReloadSettings?.Invoke();
 
 		}
 
@@ -236,8 +235,8 @@ namespace EveOPreview.UI
 				this._configurationStorage.Load();
 			}
 
-			this.ScanForConfigFiles();
-			this.UpdateConfigListing();
+
+			this.ReloadSettings?.Invoke();
 
 			this._configurationStorage.Load();
 		}

@@ -55,7 +55,7 @@ namespace EveOPreview.UI
 			this.View.LockChanged = this.LockChanged;
 
 			this.View.ConfigFileChanged = this.ConfigFileChanged;
-			this.View.ScanForConfigFiles = this.ScanForConfigFiles;
+			this.View.ScanForConfigFiles = this._configManager.UpdateConfigListing;
 			this.View.LaunchConfigDialog = this.LaunchConfigDialog;
 
 
@@ -64,7 +64,7 @@ namespace EveOPreview.UI
 			this._thumbnailManager.ThumbnailsRemoved = this.ThumbnailsRemoved;
 			this._thumbnailManager.ThumbnailSizeChanged = this.ThumbnailSizeChanged;
 
-			this._configManager.UpdateMainConfigListing = this.UpdateConfigListing;
+			this._configManager.UpdateMainConfigListing = this.UpdateViewConfigListing;
 			this._configManager.ReloadSettings = this.LoadApplicationSettings;
 			this._configManager.SetCurrentConfig = this.SetCurrentConfigFile;
 		}
@@ -137,7 +137,7 @@ namespace EveOPreview.UI
 
 			this._configurationStorage.Load();
 
-			ScanForConfigFiles();
+			this._configManager.UpdateConfigListing();
 			this.View.CurrentConfigFile = this._appConfig.ConfigFileName;
 
 			this.View.MinimizeToTray = this._configuration.MinimizeToTray;
@@ -298,13 +298,7 @@ namespace EveOPreview.UI
 			this.Activate();
 		}
 
-		public void ScanForConfigFiles()
-		{
-			this._configManager.ScanForConfigFiles();
-			UpdateConfigListing();
-		}
-
-		public void UpdateConfigListing()
+		public void UpdateViewConfigListing()
 		{
 			this.View.ConfigFiles = this._configManager.ConfigFiles;
 		}
