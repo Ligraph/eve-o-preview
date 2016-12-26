@@ -79,6 +79,14 @@ namespace EveOPreview.UI
 			this.NotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.TrayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.LockCheckbox = new System.Windows.Forms.CheckBox();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.ConfigFilesListMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.RefreshConfigsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ConfigFilePannel = new System.Windows.Forms.Panel();
+			this.ConfigSettingsButton = new System.Windows.Forms.Button();
+			this.RefreshConfigsButton = new System.Windows.Forms.Button();
+			this.ConfigFileSelector = new System.Windows.Forms.ComboBox();
+			this.ConfigFileLabel = new System.Windows.Forms.Label();
 			OpacityLabel = new System.Windows.Forms.Label();
 			RestoreWindowMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -105,6 +113,7 @@ namespace EveOPreview.UI
 			ThumbnailListPanel.SuspendLayout();
 			OverlayOptionsPanel.SuspendLayout();
 			this.TrayMenu.SuspendLayout();
+			this.ConfigFilePannel.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// OpacityLabel
@@ -119,20 +128,20 @@ namespace EveOPreview.UI
 			// RestoreWindowMenuItem
 			// 
 			RestoreWindowMenuItem.Name = "RestoreWindowMenuItem";
-			RestoreWindowMenuItem.Size = new System.Drawing.Size(151, 22);
+			RestoreWindowMenuItem.Size = new System.Drawing.Size(160, 22);
 			RestoreWindowMenuItem.Text = "Restore";
 			RestoreWindowMenuItem.Click += new System.EventHandler(this.RestoreMainForm_Handler);
 			// 
 			// ExitMenuItem
 			// 
 			ExitMenuItem.Name = "ExitMenuItem";
-			ExitMenuItem.Size = new System.Drawing.Size(151, 22);
+			ExitMenuItem.Size = new System.Drawing.Size(160, 22);
 			ExitMenuItem.Text = "Exit";
 			ExitMenuItem.Click += new System.EventHandler(this.ExitMenuItemClick_Handler);
 			// 
 			// MainOptionsPanel
 			// 
-			MainOptionsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			MainOptionsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			MainOptionsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			MainOptionsPanel.Controls.Add(this.LockCheckbox);
@@ -144,7 +153,7 @@ namespace EveOPreview.UI
 			MainOptionsPanel.Controls.Add(this.HideThumbnailsOnLostFocusCheckBox);
 			MainOptionsPanel.Controls.Add(this.EnablePerClientThumbnailsLayoutsCheckBox);
 			MainOptionsPanel.Controls.Add(OpacityLabel);
-			MainOptionsPanel.Location = new System.Drawing.Point(3, 3);
+			MainOptionsPanel.Location = new System.Drawing.Point(3, 45);
 			MainOptionsPanel.Name = "MainOptionsPanel";
 			MainOptionsPanel.Size = new System.Drawing.Size(264, 187);
 			MainOptionsPanel.TabIndex = 0;
@@ -249,6 +258,7 @@ namespace EveOPreview.UI
 			ThumbnailSizePanel.Controls.Add(this.ThumbnailsWidthNumericEdit);
 			ThumbnailSizePanel.Controls.Add(this.ThumbnailsHeightNumericEdit);
 			ThumbnailSizePanel.Location = new System.Drawing.Point(3, 196);
+			ThumbnailSizePanel.Location = new System.Drawing.Point(3, 215);
 			ThumbnailSizePanel.Name = "ThumbnailSizePanel";
 			ThumbnailSizePanel.Size = new System.Drawing.Size(264, 54);
 			ThumbnailSizePanel.TabIndex = 1;
@@ -345,7 +355,9 @@ namespace EveOPreview.UI
 			ZoomOptionsPanel.Controls.Add(ZoomAnchorLabel);
 			ZoomOptionsPanel.Controls.Add(this.EnableThumbnailZoomCheckBox);
 			ZoomOptionsPanel.Controls.Add(this.ThumbnailZoomFactorNumericEdit);
-			ZoomOptionsPanel.Location = new System.Drawing.Point(3, 256);
+
+			ZoomOptionsPanel.Location = new System.Drawing.Point(3, 249);
+
 			ZoomOptionsPanel.Name = "ZoomOptionsPanel";
 			ZoomOptionsPanel.Size = new System.Drawing.Size(264, 82);
 			ZoomOptionsPanel.TabIndex = 2;
@@ -529,7 +541,8 @@ namespace EveOPreview.UI
 			ThumbnailListPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			ThumbnailListPanel.Controls.Add(this.ThumbnailsList);
 			ThumbnailListPanel.Controls.Add(ThumbnailsListLabel);
-			ThumbnailListPanel.Location = new System.Drawing.Point(3, 399);
+ThumbnailListPanel.Location = new System.Drawing.Point(3, 399);
+
 			ThumbnailListPanel.Name = "ThumbnailListPanel";
 			ThumbnailListPanel.Size = new System.Drawing.Size(264, 125);
 			ThumbnailListPanel.TabIndex = 5;
@@ -562,13 +575,13 @@ namespace EveOPreview.UI
 			// 
 			TitleMenuItem.Enabled = false;
 			TitleMenuItem.Name = "TitleMenuItem";
-			TitleMenuItem.Size = new System.Drawing.Size(151, 22);
+			TitleMenuItem.Size = new System.Drawing.Size(160, 22);
 			TitleMenuItem.Text = "EVE-O Preview";
 			// 
 			// SeparatorMenuItem
 			// 
 			SeparatorMenuItem.Name = "SeparatorMenuItem";
-			SeparatorMenuItem.Size = new System.Drawing.Size(148, 6);
+			SeparatorMenuItem.Size = new System.Drawing.Size(157, 6);
 			// 
 			// OverlayOptionsPanel
 			// 
@@ -580,7 +593,8 @@ namespace EveOPreview.UI
 			OverlayOptionsPanel.Controls.Add(this.EnableActiveClientHighlightCheckBox);
 			OverlayOptionsPanel.Controls.Add(this.ShowThumbnailOverlaysCheckBox);
 			OverlayOptionsPanel.Controls.Add(this.ShowThumbnailFramesCheckBox);
-			OverlayOptionsPanel.Location = new System.Drawing.Point(3, 344);
+OverlayOptionsPanel.Location = new System.Drawing.Point(3, 344);
+
 			OverlayOptionsPanel.Name = "OverlayOptionsPanel";
 			OverlayOptionsPanel.Size = new System.Drawing.Size(264, 49);
 			OverlayOptionsPanel.TabIndex = 3;
@@ -649,7 +663,9 @@ namespace EveOPreview.UI
 			// 
 			this.ForumLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.ForumLinkLabel.Location = new System.Drawing.Point(4, 527);
+this.ForumLinkLabel.Location = new System.Drawing.Point(4, 527);
+this.ForumLinkLabel.Location = new System.Drawing.Point(4, 520);
+
 			this.ForumLinkLabel.Name = "ForumLinkLabel";
 			this.ForumLinkLabel.Size = new System.Drawing.Size(264, 33);
 			this.ForumLinkLabel.TabIndex = 0;
@@ -671,10 +687,85 @@ namespace EveOPreview.UI
 			this.TrayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             TitleMenuItem,
             RestoreWindowMenuItem,
+            this.toolStripSeparator1,
+            this.ConfigFilesListMenuItem,
+            this.RefreshConfigsMenuItem,
             SeparatorMenuItem,
             ExitMenuItem});
 			this.TrayMenu.Name = "contextMenuStrip1";
-			this.TrayMenu.Size = new System.Drawing.Size(152, 76);
+			this.TrayMenu.Size = new System.Drawing.Size(161, 126);
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
+			// 
+			// ConfigFilesListMenuItem
+			// 
+			this.ConfigFilesListMenuItem.Name = "ConfigFilesListMenuItem";
+			this.ConfigFilesListMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.ConfigFilesListMenuItem.Text = "Config Files";
+			this.ConfigFilesListMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ConfigFilesListMenuItem_DropDownItemClicked);
+			// 
+			// RefreshConfigsMenuItem
+			// 
+			this.RefreshConfigsMenuItem.Name = "RefreshConfigsMenuItem";
+			this.RefreshConfigsMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.RefreshConfigsMenuItem.Text = "Config Manager";
+			this.RefreshConfigsMenuItem.Click += new System.EventHandler(this.RefreshConfigsMenuItem_Click);
+			// 
+			// ConfigFilePannel
+			// 
+			this.ConfigFilePannel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.ConfigFilePannel.Controls.Add(this.ConfigSettingsButton);
+			this.ConfigFilePannel.Controls.Add(this.RefreshConfigsButton);
+			this.ConfigFilePannel.Controls.Add(this.ConfigFileSelector);
+			this.ConfigFilePannel.Controls.Add(this.ConfigFileLabel);
+			this.ConfigFilePannel.Location = new System.Drawing.Point(3, 6);
+			this.ConfigFilePannel.Name = "ConfigFilePannel";
+			this.ConfigFilePannel.Size = new System.Drawing.Size(264, 32);
+			this.ConfigFilePannel.TabIndex = 6;
+			// 
+			// ConfigSettingsButton
+			// 
+			this.ConfigSettingsButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ConfigSettingsButton.BackgroundImage")));
+			this.ConfigSettingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.ConfigSettingsButton.Location = new System.Drawing.Point(210, 2);
+			this.ConfigSettingsButton.Name = "ConfigSettingsButton";
+			this.ConfigSettingsButton.Size = new System.Drawing.Size(23, 23);
+			this.ConfigSettingsButton.TabIndex = 7;
+			this.ConfigSettingsButton.UseVisualStyleBackColor = true;
+			this.ConfigSettingsButton.Click += new System.EventHandler(this.ConfigSettingsButton_Click);
+			// 
+			// RefreshConfigsButton
+			// 
+			this.RefreshConfigsButton.BackgroundImage = global::EveOPreview.Properties.Resources.refresh;
+			this.RefreshConfigsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.RefreshConfigsButton.Location = new System.Drawing.Point(233, 2);
+			this.RefreshConfigsButton.Name = "RefreshConfigsButton";
+			this.RefreshConfigsButton.Size = new System.Drawing.Size(23, 23);
+			this.RefreshConfigsButton.TabIndex = 6;
+			this.RefreshConfigsButton.UseVisualStyleBackColor = true;
+			this.RefreshConfigsButton.Click += new System.EventHandler(this.RefreshConfigsButton_Click);
+			// 
+			// ConfigFileSelector
+			// 
+			this.ConfigFileSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.ConfigFileSelector.FormattingEnabled = true;
+			this.ConfigFileSelector.Location = new System.Drawing.Point(46, 3);
+			this.ConfigFileSelector.Name = "ConfigFileSelector";
+			this.ConfigFileSelector.Size = new System.Drawing.Size(161, 21);
+			this.ConfigFileSelector.TabIndex = 1;
+			this.ConfigFileSelector.SelectionChangeCommitted += new System.EventHandler(this.ConfigFileSelector_SelectionChangeCommitted);
+			// 
+			// ConfigFileLabel
+			// 
+			this.ConfigFileLabel.AutoSize = true;
+			this.ConfigFileLabel.Location = new System.Drawing.Point(0, 6);
+			this.ConfigFileLabel.Name = "ConfigFileLabel";
+			this.ConfigFileLabel.Size = new System.Drawing.Size(40, 13);
+			this.ConfigFileLabel.TabIndex = 0;
+			this.ConfigFileLabel.Text = "Config:";
 			// 
 			// LockCheckbox
 			// 
@@ -692,7 +783,9 @@ namespace EveOPreview.UI
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.Control;
-			this.ClientSize = new System.Drawing.Size(270, 561);
+this.ClientSize = new System.Drawing.Size(270, 553);
+			this.Controls.Add(this.ConfigFilePannel);
+
 			this.Controls.Add(OverlayOptionsPanel);
 			this.Controls.Add(MainOptionsPanel);
 			this.Controls.Add(ThumbnailSizePanel);
@@ -726,6 +819,8 @@ namespace EveOPreview.UI
 			OverlayOptionsPanel.ResumeLayout(false);
 			OverlayOptionsPanel.PerformLayout();
 			this.TrayMenu.ResumeLayout(false);
+			this.ConfigFilePannel.ResumeLayout(false);
+			this.ConfigFilePannel.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -761,7 +856,17 @@ namespace EveOPreview.UI
 		private CheckBox EnableActiveClientHighlightCheckBox;
 		private Label HighlightColorLabel;
 		private Panel ActiveClientHighlightColorButton;
+
 		private CheckBox SyncCheckbox;
 		private CheckBox LockCheckbox;
+		private Panel ConfigFilePannel;
+		private ComboBox ConfigFileSelector;
+		private Label ConfigFileLabel;
+		private Button RefreshConfigsButton;
+		private Button ConfigSettingsButton;
+		private ToolStripSeparator toolStripSeparator1;
+		private ToolStripMenuItem ConfigFilesListMenuItem;
+		private ToolStripMenuItem RefreshConfigsMenuItem;
+
 	}
 }

@@ -32,6 +32,11 @@ namespace EveOPreview.UI
 		bool EnableActiveClientHighlight { get; set; }
 		Color ActiveClientHighlightColor { get; set; }
 
+		Dictionary<string, string> ConfigFiles { get; set; }
+
+		string CurrentConfigFile { get; set; }
+		string CurrentConfigName { get; set; }
+
 		void SetForumUrl(string url);
 		void SetThumbnailSizeLimitations(Size minimumSize, Size maximumSize);
 
@@ -56,5 +61,8 @@ namespace EveOPreview.UI
 		Action ForumUrlLinkActivated { get; set; }
 		Action SyncChanged { get; set; }
 		Action LockChanged { get; set; }
+		Action ConfigFileChanged { get; set; }
+		Action ScanForConfigFiles { get; set; }
+		Action LaunchConfigDialog { get; set; }
 	}
 }
