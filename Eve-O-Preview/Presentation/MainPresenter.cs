@@ -50,9 +50,14 @@ namespace EveOPreview.UI
 			this.View.ThumbnailStateChanged = this.UpdateThumbnailState;
 			this.View.ForumUrlLinkActivated = this.OpenForumUrlLink;
 			this.View.ApplicationExitRequested = this.ExitApplication;
+
+			this.View.SyncChanged = this.SyncChanged;
+			this.View.LockChanged = this.LockChanged;
+
 			this.View.ConfigFileChanged = this.ConfigFileChanged;
 			this.View.ScanForConfigFiles = this.ScanForConfigFiles;
 			this.View.LaunchConfigDialog = this.LaunchConfigDialog;
+
 
 			this._thumbnailManager.ThumbnailsAdded = this.ThumbnailsAdded;
 			this._thumbnailManager.ThumbnailsUpdated = this.ThumbnailsUpdated;
@@ -68,12 +73,16 @@ namespace EveOPreview.UI
 		{
 			this.LoadApplicationSettings();
 			this.View.SetForumUrl(MainPresenter.ForumUrl);
+
 			if (this._configuration.MinimizeToTray)
 			{
 				this.View.Minimize();
 			}
 
 			this._thumbnailManager.Activate();
+
+			this.SyncChanged();
+			this.LockChanged();
 		}
 
 		private void Minimize()
@@ -102,8 +111,25 @@ namespace EveOPreview.UI
 
 		private void UpdateThumbnailsSize()
 		{
-			this._thumbnailManager.SetThumbnailsSize(this.View.ThumbnailSize);
+			
 			this.SaveApplicationSettings();
+
+			if (this.View.SyncThumbnailSizes)
+			{
+				this._thumbnailManager.Activate();
+			}
+		}
+
+		private void SyncChanged()
+		{
+			this._thumbnailManager.SetThumbnailResizeLock(this.View.SyncThumbnailSizes || this.View.LockThumbnails);  //if either is true, lock resize
+			this._thumbnailManager.Activate();
+		}
+
+		private void LockChanged()
+		{
+			this._thumbnailManager.SetThumbnailPositionLock(this.View.LockThumbnails);
+			this._thumbnailManager.SetThumbnailResizeLock(this.View.SyncThumbnailSizes || this.View.LockThumbnails);
 		}
 
 		private void LoadApplicationSettings()
@@ -125,7 +151,7 @@ namespace EveOPreview.UI
 			this.View.EnablePerClientThumbnailLayouts = this._configuration.EnablePerClientThumbnailLayouts;
 
 			this.View.SetThumbnailSizeLimitations(this._configuration.ThumbnailMinimumSize, this._configuration.ThumbnailMaximumSize);
-			this.View.ThumbnailSize = this._configuration.ThumbnailSize;
+			this.View.ThumbnailSize = this._configuration.ThumbnailDefaultSize;
 
 			this.View.EnableThumbnailZoom = this._configuration.ThumbnailZoomEnabled;
 			this.View.ThumbnailZoomFactor = this._configuration.ThumbnailZoomFactor;
@@ -135,6 +161,10 @@ namespace EveOPreview.UI
 			this.View.ShowThumbnailFrames = this._configuration.ShowThumbnailFrames;
 			this.View.EnableActiveClientHighlight = this._configuration.EnableActiveClientHighlight;
 			this.View.ActiveClientHighlightColor = this._configuration.ActiveClientHighlightColor;
+
+			this.View.SyncThumbnailSizes = this._configuration.SyncThumbnailSizes;
+			
+			this.View.LockThumbnails = this._configuration.LockThumbnails;
 		}
 
 		private void SaveApplicationSettings()
@@ -149,7 +179,7 @@ namespace EveOPreview.UI
 			this._configuration.HideThumbnailsOnLostFocus = this.View.HideThumbnailsOnLostFocus;
 			this._configuration.EnablePerClientThumbnailLayouts = this.View.EnablePerClientThumbnailLayouts;
 
-			this._configuration.ThumbnailSize = this.View.ThumbnailSize;
+			this._configuration.ThumbnailDefaultSize = this.View.ThumbnailSize;
 
 			this._configuration.ThumbnailZoomEnabled = this.View.EnableThumbnailZoom;
 			this._configuration.ThumbnailZoomFactor = this.View.ThumbnailZoomFactor;
@@ -159,6 +189,11 @@ namespace EveOPreview.UI
 			this._configuration.ShowThumbnailFrames = this.View.ShowThumbnailFrames;
 			this._configuration.EnableActiveClientHighlight = this.View.EnableActiveClientHighlight;
 			this._configuration.ActiveClientHighlightColor = this.View.ActiveClientHighlightColor;
+
+
+			this._configuration.SyncThumbnailSizes = this.View.SyncThumbnailSizes;
+
+			this._configuration.LockThumbnails = this.View.LockThumbnails;
 
 			this._appConfig.ConfigFileName = this.View.CurrentConfigFile;
 
@@ -172,6 +207,8 @@ namespace EveOPreview.UI
 		private void ThumbnailsAdded(IList<IThumbnailView> thumbnails)
 		{
 			this.View.AddThumbnails(this.GetThumbnailViews(thumbnails, false));
+			this.LockChanged();
+			this.SyncChanged();
 		}
 
 		private void ThumbnailsUpdated(IList<IThumbnailView> thumbnails)
@@ -228,7 +265,7 @@ namespace EveOPreview.UI
 
 		private void ThumbnailSizeChanged(Size size)
 		{
-			this.View.ThumbnailSize = size;
+			//don't need to change anything here
 		}
 
 		private void UpdateThumbnailState(IntPtr thumbnailId)

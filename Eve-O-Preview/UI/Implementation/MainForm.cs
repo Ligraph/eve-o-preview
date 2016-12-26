@@ -246,6 +246,30 @@ namespace EveOPreview.UI
 		}
 		private Color _activeClientHighlightColor;
 
+		public bool SyncThumbnailSizes
+		{
+			get
+			{
+				return this.SyncCheckbox.Checked;
+			}
+			set
+			{
+				this.SyncCheckbox.Checked = value;
+			}
+		}
+
+		public bool LockThumbnails
+		{
+			get
+			{
+				return this.LockCheckbox.Checked;
+			}
+			set
+			{
+				this.LockCheckbox.Checked = value;
+			}
+		}
+
 		public new void Show()
 		{
 			// Registers the current instance as the application's Main Form
@@ -402,11 +426,17 @@ namespace EveOPreview.UI
 
 		public Action ForumUrlLinkActivated { get; set; }
 
+
+		public Action SyncChanged { get; set; }
+
+		public Action LockChanged { get; set; }
+
 		public Action ConfigFileChanged { get; set; }
 
 		public Action ScanForConfigFiles { get; set; }
 
 		public Action LaunchConfigDialog { get; set; }
+
 
 		#region UI events
 		private void OptionChanged_Handler(object sender, EventArgs e)
@@ -517,6 +547,18 @@ namespace EveOPreview.UI
 			this._zoomAnchorMap[ViewZoomAnchor.SE] = this.ZoomAanchorSERadioButton;
 		}
 
+
+		private void SyncCheckbox_CheckedChanged(object sender, EventArgs e)
+		{
+			this.ApplicationSettingsChanged?.Invoke();
+			this.SyncChanged?.Invoke();
+		}
+
+		private void LockCheckbox_CheckedChanged(object sender, EventArgs e)
+		{
+			this.ApplicationSettingsChanged?.Invoke();
+			this.LockChanged?.Invoke();
+
 		private void ConfigFileSelector_SelectionChangeCommitted(object sender, EventArgs e)
 		{
 			//TODO make work
@@ -547,6 +589,7 @@ namespace EveOPreview.UI
 			this.CurrentConfigName = e.ClickedItem.Text;
 			this.ConfigFileChanged?.Invoke();
 			this.ApplicationSettingsChanged?.Invoke();
+
 
 		}
 	}
